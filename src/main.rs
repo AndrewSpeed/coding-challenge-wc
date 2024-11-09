@@ -20,29 +20,22 @@ struct Args {
     words: bool,
 }
 
-fn count_file_bytes(input: &str) -> Result<u64> {
-    Ok(input.len() as u64)
+fn count_file_bytes(input: &str) -> usize {
+    input.len()
 }
 
-fn count_file_chars(input: &str) -> Result<u64> {
-    let char_count = input.chars().count();
-
-    Ok(char_count as u64)
+fn count_file_chars(input: &str) -> usize {
+    input.chars().count()
 }
 
-fn count_file_lines(input: &str) -> Result<u64> {
-    let line_count = input.lines().count();
-    Ok(line_count.try_into().unwrap())
+fn count_file_lines(input: &str) -> usize {
+    input.lines().count()
 }
 
-fn count_file_words(input: &str) -> Result<u64> {
-    let mut word_count = 0;
-
-    for line in input.lines() {
-        word_count += line.split_whitespace().count();
-    }
-
-    Ok(word_count.try_into().unwrap())
+fn count_file_words(input: &str) -> usize {
+    input
+        .lines()
+        .fold(0, |acc, line| acc + line.split_whitespace().count())
 }
 
 fn main() -> Result<()> {
@@ -71,22 +64,22 @@ fn main() -> Result<()> {
     let contents = String::from_utf8(input)?;
 
     if args.lines {
-        let result = count_file_lines(&contents)?;
+        let result = count_file_lines(&contents);
         output_parts.push(result.to_string());
     }
 
     if args.words {
-        let result = count_file_words(&contents)?;
+        let result = count_file_words(&contents);
         output_parts.push(result.to_string());
     }
 
     if args.bytes {
-        let result = count_file_bytes(&contents)?;
+        let result = count_file_bytes(&contents);
         output_parts.push(result.to_string());
     }
 
     if args.chars {
-        let result = count_file_chars(&contents)?;
+        let result = count_file_chars(&contents);
         output_parts.push(result.to_string());
     }
 
