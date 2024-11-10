@@ -1,6 +1,6 @@
 use anyhow::Result;
 use clap::Parser;
-use std::collections::HashMap;
+use indexmap::IndexMap;
 use std::fs::File;
 use std::io::{self, Read};
 
@@ -69,7 +69,7 @@ fn main() -> Result<()> {
     let contents = String::from_utf8(input)?;
 
     // TODO: use builder for arg parsing to be able to reference argument by strings
-    let mut arg_function_mapping: HashMap<&str, (bool, CounterFn)> = HashMap::new();
+    let mut arg_function_mapping: IndexMap<&str, (bool, CounterFn)> = IndexMap::new();
     arg_function_mapping.insert("lines", (args.lines, count_file_lines));
     arg_function_mapping.insert("words", (args.words, count_file_words));
     arg_function_mapping.insert("bytes", (args.bytes, count_file_bytes));
