@@ -69,11 +69,12 @@ fn main() -> Result<()> {
     let contents = String::from_utf8(input)?;
 
     // TODO: use builder for arg parsing to be able to reference argument by strings
+    // always return in the following order: lines, words, characters, bytes to match wc output
     let mut arg_function_mapping: IndexMap<&str, (bool, CounterFn)> = IndexMap::new();
     arg_function_mapping.insert("lines", (args.lines, count_file_lines));
     arg_function_mapping.insert("words", (args.words, count_file_words));
-    arg_function_mapping.insert("bytes", (args.bytes, count_file_bytes));
     arg_function_mapping.insert("chars", (args.chars, count_file_chars));
+    arg_function_mapping.insert("bytes", (args.bytes, count_file_bytes));
 
     arg_function_mapping
         .into_iter()
