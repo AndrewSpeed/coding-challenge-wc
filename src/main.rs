@@ -93,3 +93,48 @@ fn main() -> Result<()> {
 
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // bytes
+    #[test]
+    fn count_file_bytes_returns_correct_value() {
+        let result = count_file_bytes("This is some test input");
+        assert_eq!(result, 23);
+    }
+
+    // lines
+    #[test]
+    fn count_file_lines_returns_correct_value_for_single_line() {
+        let result = count_file_lines("This input is all on a single line");
+        assert_eq!(result, 1);
+    }
+
+    #[test]
+    fn count_file_lines_returns_correct_value_for_multiple_lines() {
+        let result = count_file_lines("This input is\nspread over\nmultiple\nlines");
+        assert_eq!(result, 4);
+    }
+
+    // words
+    #[test]
+    fn count_file_words_returns_correct_value_for_non_empty_input() {
+        let result = count_file_words("Input containing multiple words");
+        assert_eq!(result, 4);
+    }
+
+    #[test]
+    fn count_file_words_returns_correct_value_for_empty_input() {
+        let result = count_file_words("");
+        assert_eq!(result, 0);
+    }
+
+    // chars
+    #[test]
+    fn count_file_chars_returns_correct_value_for_empty_input() {
+        let result = count_file_chars("Input containing many characters");
+        assert_eq!(result, 32);
+    }
+}
